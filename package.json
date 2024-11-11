@@ -1,0 +1,26 @@
+{
+  "name": "csrf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"node ./station/index\" \"http-server ./forgery\"",
+    "start-protect": "concurrently \"node ./station/index protect\" \"http-server ./forgery\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.11.0",
+    "express": "^4.21.1",
+    "multer": "1.4.5-lts.1",
+    "open": "^10.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "http-server": "^14.1.1",
+    "nodemon": "^3.1.7"
+  }
+}

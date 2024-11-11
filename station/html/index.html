@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>转账页面</title>
+  </head>
+
+  <body>
+    <button>打钱</button>
+    <script>
+      fetch("/auth").then(async (res) => {
+        console.log(await res.text());
+      });
+
+      const btn = document.querySelector("button");
+      btn.addEventListener("click", () => {
+        fetch("/token").then(async (res) => {
+          const token = await res.headers.get("X-CSRF-Token");
+          console.log(token);
+          console.log(await res.text());
+          const data = new URLSearchParams();
+          data.set("amount", 99999);
+          data.set("to", "zzc");
+          fetch("/transfer", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-CSRF-Token": token,
+            },
+            body: data,
+          }).then(async (res) => {
+            const resInfo = await res.json();
+            console.log(resInfo);
+            alert(JSON.stringify(resInfo));
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
